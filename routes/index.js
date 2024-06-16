@@ -8,7 +8,9 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/showall", user.tampilSemua);
 router.get("/:id", user.tampilId);
+router.post("/add", user.addData);
 router.post("/add", user.addData);
 router.put("/update/:id", user.updateData);
 router.delete("/delete/:id", user.deleteData);
