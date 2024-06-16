@@ -9,4 +9,5 @@ router.get("/", (req, res) => {
 });
 
 router.post("/add", user.addData);
+router.put("/update/:id", user.updateData);
 module.exports = router;

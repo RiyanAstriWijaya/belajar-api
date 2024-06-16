@@ -20,4 +20,23 @@ module.exports = {
       next(error);
     }
   },
+  updateData: async (req, res, next) => {
+    try {
+      const response = await prisma.user.update({
+        where: {
+          id: parseInt(req.params.id),
+        },
+        data: {
+          ...req.body,
+        },
+      });
+      res.json({
+        status: true,
+        message: "data berhasil di perbarui",
+        data: response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
 };
