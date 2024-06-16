@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { response } = require("express");
 const prisma = new PrismaClient();
 
 module.exports = {
@@ -33,6 +34,23 @@ module.exports = {
       res.json({
         status: true,
         message: "data berhasil di perbarui",
+        data: response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  deleteData: async (req, res, next) => {
+    try {
+      const response = await prisma.user.delete({
+        where: {
+          id: parseInt(req.params.id),
+        },
+      });
+      res.json({
+        status: true,
+        message: "data berhasil dihapus",
         data: response,
       });
     } catch (error) {

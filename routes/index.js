@@ -10,4 +10,5 @@ router.get("/", (req, res) => {
 
 router.post("/add", user.addData);
 router.put("/update/:id", user.updateData);
+router.delete("/delete/:id", user.deleteData);
 module.exports = router;
