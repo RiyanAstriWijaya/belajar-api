@@ -3,6 +3,27 @@ const { response } = require("express");
 const prisma = new PrismaClient();
 
 module.exports = {
+  tampilId: async (req, res, next) => {
+    try {
+      const response = await prisma.user.findUnique({
+        where: {
+          id: parseInt(req.params.id),
+        },
+      });
+      if (!response) {
+        res.status(400).json({
+          status: true,
+          message: "data tidak ada",
+          data: response,
+        });
+      }
+      res.json({
+        status: false,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
   addData: async (req, res, next) => {
     try {
       const body = req.body;
@@ -40,7 +61,6 @@ module.exports = {
       next(error);
     }
   },
-
   deleteData: async (req, res, next) => {
     try {
       const response = await prisma.user.delete({
