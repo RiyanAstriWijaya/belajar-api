@@ -12,13 +12,15 @@ module.exports = {
       });
       if (!response) {
         res.status(400).json({
-          status: true,
+          status: false,
           message: "data tidak ada",
           data: response,
         });
       }
       res.json({
-        status: false,
+        status: true,
+        message: "data berhasil di ambil",
+        data: response,
       });
     } catch (error) {
       next(error);
