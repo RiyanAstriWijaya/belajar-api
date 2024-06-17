@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const { response } = require("express");
 const prisma = new PrismaClient();
+const bsrypt = require("bcrypt");
 
 module.exports = {
   tampilSemua: async (req, res, next) => {
