@@ -49,7 +49,7 @@ module.exports = {
   addData: async (req, res, next) => {
     try {
       const body = req.body;
-      const hashingPass = bcrypt.hashSync(password, 10);
+      const hashingPass = bcrypt.hashSync(body.password, 10);
       const user = await prisma.user.create({
         data: {
           username: body.username,
@@ -72,7 +72,7 @@ module.exports = {
           id: parseInt(req.params.id),
         },
         data: {
-          username: body.username,
+          ...req.body,
           password: hashingPass,
         },
       });
