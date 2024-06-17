@@ -67,12 +67,14 @@ module.exports = {
   },
   updateData: async (req, res, next) => {
     try {
+      const body = req.body;
+      const hashingPass = bcrypt.hashSync(body.password, 10);
       const response = await prisma.user.update({
         where: {
           id: parseInt(req.params.id),
         },
         data: {
-          ...req.body,
+          username: body.username,
           password: hashingPass,
         },
       });
@@ -95,6 +97,20 @@ module.exports = {
       res.json({
         status: true,
         message: "data berhasil dihapus",
+        data: response,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+  deleteAlldata: async (req, res, next) => {
+    try {
+      const response = await prisma.user.delete({
+        where: {},
+      });
+      res.json({
+        status: true,
+        message: "data berhasil dihapus semua",
         data: response,
       });
     } catch (error) {

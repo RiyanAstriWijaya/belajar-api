@@ -14,4 +14,5 @@ router.post("/add", user.addData);
 router.post("/add", user.addData);
 router.put("/update/:id", user.updateData);
 router.delete("/delete/:id", user.deleteData);
+router.delete("/deleteall/", user.deleteAlldata);
 module.exports = router;
