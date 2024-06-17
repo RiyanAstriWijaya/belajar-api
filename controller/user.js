@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const { response } = require("express");
 const prisma = new PrismaClient();
-const bsrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 module.exports = {
   tampilSemua: async (req, res, next) => {
@@ -49,10 +49,11 @@ module.exports = {
   addData: async (req, res, next) => {
     try {
       const body = req.body;
+      const hashingPass = bcrypt.hashSync(password, 10);
       const user = await prisma.user.create({
         data: {
           username: body.username,
-          password: body.password,
+          password: hashingPass,
         },
       });
       return res.status(201).json({
@@ -71,7 +72,8 @@ module.exports = {
           id: parseInt(req.params.id),
         },
         data: {
-          ...req.body,
+          username: body.username,
+          password: hashingPass,
         },
       });
       res.json({
